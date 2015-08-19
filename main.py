@@ -15,10 +15,13 @@
 # limitations under the License.
 #
 import webapp2
+import os
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        with open(os.getcwd() + '/frontend/app.html', 'r') as f:
+            html = f.read()
+        self.response.write(html)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
