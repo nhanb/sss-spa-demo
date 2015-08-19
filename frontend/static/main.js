@@ -1,3 +1,7 @@
+// Declare router globally (yuck) to allow access for the click event hijacking
+// code later
+var router;
+
 var MyApp = React.createClass({
 
   getInitialState: function() {
@@ -7,16 +11,15 @@ var MyApp = React.createClass({
   },
 
   componentDidMount: function() {
-    var router = Router({
+    router = Router({
       '/': this.setState.bind(this, {route: 'home'}),
       '/about': this.setState.bind(this, {route: 'about'}),
-    });
+    }).configure({html5history: true});
     router.init();
   },
 
   render: function() {
     var routeComponent = null;
-    console.log('rendering///')
     switch(this.state.route) {
       case 'home':
         routeComponent = <Home />;
@@ -30,8 +33,8 @@ var MyApp = React.createClass({
       <div>
         <nav role="navigation">
           <ul id="navlist">
-            <li><a href="#/">Home</a></li>
-            <li><a href="#/about">About</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
           </ul>
         </nav>
 
@@ -67,3 +70,19 @@ var About = React.createClass({
 });
 
 React.render(<MyApp />, document.getElementById('app'));
+
+// Hijack href clicks so that the browser won't reload
+$(document).on('click', 'a', function (e) {
+
+    // don't hijack external links or mod-key clicks
+    if (this.className === 'external' ||
+        e.ctrlKey || e.altKey || e.metaKey || e.shiftKey) {
+        return true;
+    }
+
+    // remove the "http://domain.com" part:
+    var route = this.href.replace(/^.*\/\/[^\/]+/, '');
+
+    router.setRoute(route);
+    e.preventDefault();
+});
