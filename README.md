@@ -1,9 +1,7 @@
-# Naive SPA implementation
+# A crawlable SPA
 
-This is an extremely minimal SPA with 2 routes and using hash paths to prevent browser reload (the
-`/#/` thingy).
+Slightly improved from the last version, this one has dedicated templates to serve to crawlers.
 
-See it in action at http://sss-spa-hash.appspot.com
+See it in action at http://sss-spa-final.appspot.com
 
-While it does work, crawlers are basically screwed. Try changing your useragent to `Googlebot` to
-see what I mean (or try sharing it on facebook/slack).
+Try sharing it on Facebook and see the preview :)
