@@ -1,13 +1,9 @@
-# Minimal Google App Engine python project template
+# Naive SPA implementation
 
-Create a new Google App Engine project at https://console.developers.google.com/project, Then edit
-`application` value in **app.yaml** to match the name of the project you just created.
+This is an extremely minimal SPA with 2 routes and using hash paths to prevent browser reload (the
+`/#/` thingy).
 
-Now run (assuming you have `cd`-ed into this project's root dir and you have the GAE Python SDK
-extracted to your `$HOME`):
+See it in action at http://sss-spa-hash.appspot.com
 
-```bash
-python2 ~/google_appengine/appcfg.py --oauth2 update .
-```
-
-Your app should now be live at `http://your-project-name.appspot.com`
+While it does work, crawlers are basically screwed. Try changing your useragent to `Googlebot` to
+see what I mean (or try sharing it on facebook/slack).
